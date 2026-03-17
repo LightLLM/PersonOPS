@@ -28,9 +28,10 @@ Think of it as a **control plane for production AI personas**.
 - **Frontend** (`frontend/`):
   - Next.js App Router, TypeScript, Tailwind CSS, lucide-react.
   - Dark, SaaS-style dashboard UI (Vercel/Linear/Warp inspired).
-  - `/api/run` and `/api/compare` routes:
-    - If `DEPLOYED_AGENT_URL` is set → proxy to real Gradient ADK agent.
-    - Otherwise → use local mocks for reliable demos.
+  - `/api/run` and `/api/compare` routes (priority order):
+    1. `DEPLOYED_AGENT_URL` → Gradient ADK deployed agent.
+    2. `OPENAI_API_KEY` → OpenAI Chat Completions with the same persona system prompts (server-side only).
+    3. Otherwise → mock responses for offline demos.
 
 - **Agent** (`agent/`):
   - Python, **DigitalOcean Gradient ADK**, **LangGraph**, and `gradient` client.
@@ -102,12 +103,16 @@ Think of it as a **control plane for production AI personas**.
 
 ```bash
 cd frontend
-cp .env.example .env
+cp .env.example .env.local
 npm install
 npm run dev
 ```
 
-You can leave `DEPLOYED_AGENT_URL` empty to use **mocked** responses for design/demo, or set it later to your deployed Gradient ADK agent.
+- **OpenAI (real answers without Gradient):** set `OPENAI_API_KEY` in `.env.local` (never commit). Default model is **GPT-5.3 Instant** (`gpt-5.3-chat-latest`); override with `OPENAI_MODEL` if needed.
+- **Gradient ADK:** set `DEPLOYED_AGENT_URL` (and token); that path overrides OpenAI.
+- **Mocks only:** leave both unset.
+
+On **DigitalOcean App Platform**, add `OPENAI_API_KEY` (and optionally `OPENAI_MODEL`) as encrypted app-level environment variables.
 
 ### 2. Agent setup (Gradient ADK)
 
