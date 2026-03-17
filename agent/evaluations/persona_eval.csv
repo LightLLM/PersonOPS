@@ -1,0 +1,8 @@
+query,expected_response
+"{""prompt"": ""Explain PersonaOps to a security team in 3 bullets."",""persona"": ""compliance""}","Should emphasize risk management, auditability, and policy alignment."
+"{""prompt"": ""Pitch PersonaOps to a VP of Sales."",""persona"": ""sales""}","Should be energetic, outcome-focused, and end with a clear call-to-action."
+"{""prompt"": ""Summarize the tradeoffs of using multiple AI personas in production."",""persona"": ""research""}","Should separate facts, assumptions, and recommendations in an organized way."
+"{""prompt"": ""Calculate 2+2*5 and explain how that supports PersonaOps ROI."",""persona"": ""sales""}","Should use math correctly and turn the result into a benefits-focused statement."
+"{""prompt"": ""List key compliance risks when deploying AI agents to end-users."",""persona"": ""compliance""}","Should be cautious, highlight assumptions, and surface edge cases."
+"{""prompt"": ""Compare PersonaOps vs a generic chatbot for observability."",""persona"": ""research""}","Should contrast observability, evaluation, and control-plane aspects with a neutral tone."
+
