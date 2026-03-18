@@ -1,0 +1,31 @@
+# DigitalOcean App Platform spec — PersonaOps Next.js frontend (monorepo)
+# Docs: https://docs.digitalocean.com/products/app-platform/reference/app-spec/
+#
+# After first deploy, add encrypted env vars in the control panel:
+#   OPENAI_API_KEY   (required for real AI responses)
+#   OPENAI_MODEL     (optional, default gpt-5.3-chat-latest)
+# Optional Gradient path:
+#   DEPLOYED_AGENT_URL, DIGITALOCEAN_API_TOKEN
+#
+# If your GitHub repo path differs, change github.repo below.
+
+name: personaops
+region: nyc
+services:
+  - name: web
+    github:
+      repo: LightLLM/PersonOPS
+      branch: main
+      deploy_on_push: true
+    source_dir: frontend
+    build_command: npm install && npm run build
+    run_command: npm run start
+    http_port: 3000
+    instance_count: 1
+    instance_size_slug: basic-xxs
+    routes:
+      - path: /
+    envs:
+      - key: NODE_ENV
+        value: production
+        scope: RUN_AND_BUILD_TIME

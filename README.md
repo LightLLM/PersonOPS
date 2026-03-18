@@ -114,6 +114,19 @@ npm run dev
 
 On **DigitalOcean App Platform**, add `OPENAI_API_KEY` (and optionally `OPENAI_MODEL`) as encrypted app-level environment variables.
 
+### Deploy to DigitalOcean App Platform
+
+DigitalOcean does **not** receive code from `git push` directly—it pulls from **GitHub** after you connect the repo.
+
+1. **Push to GitHub** (e.g. `main`): `git push origin main`
+2. In [App Platform](https://cloud.digitalocean.com/apps) → **Create App** (or open your existing app).
+3. Connect **GitHub** → repo **`LightLLM/PersonOPS`**, branch **`main`**.
+4. **Source directory:** `frontend` (required—root has no `package.json`).
+5. Enable **Autodeploy** so every push to `main` triggers a new deployment.
+6. **Environment** → add **`OPENAI_API_KEY`** (Encrypt). Redeploy.
+
+Optional: create/update from spec using [`.do/app.yaml`](./.do/app.yaml) (`doctl apps create --spec .do/app.yaml` or paste spec in **Settings → App Spec**).
+
 ### 2. Agent setup (Gradient ADK)
 
 ```bash
